@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->restrictOnDelete();
+            $table->string('name');
+            $table->string('sku')->nullable()->unique();
+            $table->string('barcode')->nullable()->unique();
+            $table->decimal('purchase_price', 10, 2)->default(0);
+            $table->decimal('sale_price', 10, 2)->default(0);
+            $table->integer('stock')->default(0);
+            $table->integer('minimum_stock')->default(5);
+            $table->string('unit')->nullable();
+            $table->string('image')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('status')->default(1)->comment('1 = Active , 0 = Inactive');
             $table->timestamps();
         });
     }

@@ -6,12 +6,12 @@
         <nav class="mt-2" aria-label="Main navigation">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" data-accordion="false" id="navigation">
                 <li class="nav-item">
-                    <a href="#" class="nav-link"> <i class="nav-icon bi bi-grid"></i>
+                    <a href="{{ route('dashboard') }}" class="nav-link"> <i class="nav-icon bi bi-grid"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link >
                         <i class="nav-icon bi bi-folder2-open"></i>
                         <p>
                             Masters
@@ -20,7 +20,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./widgets/small-box.html" class="nav-link">
+                            <a href="{{ route('category.index') }}" class="nav-link {{ Route('category.index')? 'active': '' }}"">
                                 <i class="nav-icon bi bi-tags"></i>
                                 <p>Categories</p>
                             </a>
@@ -151,7 +151,7 @@
                         <i class="nav-icon bi bi-gear"></i>
                         <p>
                             Settings
-                            <i class="nav-arrow bi bi-chevron-right"></i>
+                          
                         </p>
                     </a>
                 </li>
@@ -160,7 +160,7 @@
                         <i class="nav-icon bi bi-box-arrow-right"></i>
                         <p>
                             Logout
-                            <i class="nav-arrow bi bi-chevron-right"></i>
+                            
                         </p>
                     </a>
                 </li>
