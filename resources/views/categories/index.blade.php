@@ -15,7 +15,8 @@
                             <h3 class="card-title">Category List</h3>
                         </div>
                         <div class="col-md-6">
-                            <a href="{{ route('category.create') }}" class="btn btn-primary float-end"> <i class="bi bi-plus-circle"></i> Add Category</a>
+                            <a href="{{ route('category.create') }}" class="btn btn-primary float-end"> <i
+                                    class="bi bi-plus-circle"></i> Add Category</a>
                         </div>
                     </div>
 
@@ -33,15 +34,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Ali</td>
-                                    <td><span class="badge bg-success">Active</span></td>
-                                    <td>
-                                        <a href="#" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></a>
-                                        <a href="#" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
-                                    </td>
-                                </tr>
+                                @foreach ($categories as $category)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>
+                                            @if ($category->status == 1)
+                                                <span class="badge bg-success">Active</span>
+                                            @else
+                                                <span class="badge bg-danger">Inactive</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('category.edit', $category->id) }}"
+                                                class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></a>
+                                                <form action="{{ route('category.destroy', $category->id) }}" class="d-inline" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                                                </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
