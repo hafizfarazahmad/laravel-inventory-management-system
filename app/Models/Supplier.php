@@ -10,6 +10,7 @@ class Supplier extends Model
         'name',
         'email',
         'phone',
-        'status'
+        'status',
+        'supplier'
     ];
 }

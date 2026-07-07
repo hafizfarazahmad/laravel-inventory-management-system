@@ -37,6 +37,7 @@ class CustomerController extends Controller
         $customer->email = $data['email'];
         $customer->phone = $data['phone'];
         $customer->status = $data['status'];
+        $customer->address = $data['address'];
         $customer->save();
         return redirect()->route('customer.index')->with('success', 'Customer Added Successfully');
     }
@@ -70,6 +71,7 @@ class CustomerController extends Controller
         $customer->email = $data['email'];
         $customer->phone = $data['phone'];
         $customer->status = $data['status'];
+        $customer->address = $data['address'];
         $customer->save();
         return redirect()->route('customer.index')->with('success', 'Customer Updated Successfully');
     }

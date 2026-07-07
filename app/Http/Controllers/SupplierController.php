@@ -37,6 +37,7 @@ class SupplierController extends Controller
         $supplier->email = $data['email'];
         $supplier->phone = $data['phone'];
         $supplier->status = $data['status'];
+        $supplier->address = $data['address'];
         $supplier->save();
         return redirect()->route('supplier.index')->with('success', 'Supplier Added Successfully');
     }
@@ -70,6 +71,7 @@ class SupplierController extends Controller
         $supplier->email = $data['email'];
         $supplier->phone = $data['phone'];
         $supplier->status = $data['status'];
+        $supplier->address = $data['address'];
         $supplier->save();
         return redirect()->route('supplier.index')->with('success', 'Supplier Updated Successfully');
     }

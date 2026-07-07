@@ -28,7 +28,8 @@ class SupplierRequest extends FormRequest
             'name'    => 'required',
             'email'   => 'nullable',
             'phone'   => 'nullable',
-            'status'  => 'nullable'
+            'status'  => 'nullable',
+            'address' => 'nullable',
         ];
     }
 }

@@ -32,15 +32,26 @@
         @enderror
     </div>
 
+    <div class="col-md-12 mb-3">
+        <label class="form-label">Address</label>
+
+        <textarea name="address" rows="4" class="form-control">{{ old('address', $customer->address ?? '') }}</textarea>
+        @error('description')
+            <div class="invalid-feedback d-block">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+
     <div class="col-md-4 mb-3">
         <label class="form-label">Status</label>
 
         <select name="status" class="form-select">
-            <option value="1" {{ old('status', $customer->status ?? 1) == 1 ? 'selected' : '' }}>
+            <option value="1" {{ old('status', $category->status ?? 1) == 1 ? 'selected' : '' }}>
                 Active
             </option>
 
-            <option value="0" {{ old('status', $customer->status ?? 1) == 0 ? 'selected' : '' }}>
+            <option value="0" {{ old('status', $category->status ?? 1) == 0 ? 'selected' : '' }}>
                 Inactive
             </option>
         </select>
