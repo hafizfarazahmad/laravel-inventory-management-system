@@ -32,13 +32,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./widgets/cards.html" class="nav-link">
+                            <a href="{{ route('supplier.index') }}" class="nav-link">
                                 <i class="nav-icon bi bi-truck"></i>
                                 <p>Suppliers</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./widgets/cards.html" class="nav-link">
+                            <a href="{{ route('customer.index') }}" class="nav-link">
                                 <i class="nav-icon bi bi-people"></i>
                                 <p>Customers</p>
                             </a>
