@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProductRequest extends FormRequest
 {
@@ -25,8 +26,8 @@ class ProductRequest extends FormRequest
         return [
             'category_id'    => 'required|exists:categories,id',
             'name'           => 'required',
-            'sku'            => 'nullable|unique:products,sku',
-            'barcode'        => 'nullable|unique:products,barcode',
+            'sku'            => 'nullable', Rule::unique('products', 'sku')->ignore($this->route('product')),
+            'barcode'        => 'nullable',Rule::unique('products','barcode')->ignore($this->route('product')),
             'purchase_price' => 'nullable|numeric',
             'sale_price'     => 'nullable|numeric',
             'stock'          => 'nullable|integer',

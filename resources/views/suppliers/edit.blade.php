@@ -8,7 +8,7 @@
 
     <div class="container-fluid">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-dark text-white">
                 <div class="row">
                     <div class="col-md-6">
                         <h3 class="card-title">Edit Supplier</h3>
@@ -26,9 +26,9 @@
                 <div class="card-body">
                     @include('suppliers._form')
                 </div>
-                <div class="card-footer float-end">
-                    <button type="submit" class="btn btn-primary text-end">Update</button>
-                    <a href="{{ route('supplier.index') }}" class="btn btn-secondary text-end">Cencle</a>
+                <div class="card-footer ">
+                    <button type="submit" class="btn btn-primary float-end">Update</button>
+                    <a href="{{ route('supplier.index') }}" class="btn btn-secondary float-end me-2">Cencle</a>
                 </div>
             </form>
         </div>

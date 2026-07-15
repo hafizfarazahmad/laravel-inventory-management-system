@@ -63,7 +63,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./layout/fixed-sidebar.html" class="nav-link">
+                            <a href="{{ route('purchase.index') }}" class="nav-link">
                                 <i class="nav-icon bi bi-cart-plus"></i>
                                 <p>Purchase</p>
                             </a>

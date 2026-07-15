@@ -12,7 +12,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-6">
-                            <h3 class="card-title">Category List</h3>
+                            <h1 class="card-title">Category List</h1>
                         </div>
                         <div class="col-md-6">
                             <a href="{{ route('category.create') }}" class="btn btn-primary float-end"> <i

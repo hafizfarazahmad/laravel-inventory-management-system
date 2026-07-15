@@ -8,7 +8,7 @@
 
     <div class="container-fluid">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-dark text-white">
                 <div class="row">
                     <div class="col-md-6">
                         <h3 class="card-title">Edit Customer</h3>
