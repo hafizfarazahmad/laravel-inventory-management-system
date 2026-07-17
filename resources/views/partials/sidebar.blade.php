@@ -57,7 +57,7 @@
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./layout/unfixed-sidebar.html" class="nav-link">
+                            <a href="{{ route('sale.index') }}" class="nav-link">
                                 <i class="nav-icon bi bi-cart-check"></i>
                                 <p>Sales</p>
                             </a>
