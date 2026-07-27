@@ -65,7 +65,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data['product'] = Product::findOrFail($id);
+        return view('products.show', $data);
     }
 
     /**
@@ -124,5 +125,15 @@ class ProductController extends Controller
         }
         $product->delete();
         return redirect()->route('product.index')->with('success', 'Product Deleted Successfully');
+    }
+    public function current_stock()
+    {
+        $data['products'] = Product::where('status', 1)->get();
+        return view('stock.current_stock', $data);
+    }
+    public function low_stock()
+    {
+        $data['products'] = Product::where('stock','<=', 'minimum_stock')->get();
+        return view('stock.low_stock', $data);
     }
 }

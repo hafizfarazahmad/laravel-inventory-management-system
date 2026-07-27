@@ -1,29 +1,33 @@
 @extends('layouts.app')
 @section('title', 'Category Create')
 @section('content')
-
-    <div class="content-header ms-2 me-2 mt-2">
-        <h2>Categories</h2>
+@section('breadcrumb')
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Add Categories</h3>
+        </div>
     </div>
+@endsection
 
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header bg-dark text-white">
-                <h3 class="card-title">Add Category</h3>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-md-10 offset-1">
+            <div class="card">
+                <form action="{{ route('category.store') }}" method="POST">
+                    @csrf
+                    <div class="card-body">
+                        @include('categories._form')
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary float-end btn-sm">Save</button>
+                        <a href="{{ route('category.index') }}"
+                            class="btn btn-secondary btn-sm float-end me-2">Cencel</a>
+                    </div>
+                </form>
             </div>
-
-            <form action="{{ route('category.store') }}" method="POST">
-                @csrf
-                <div class="card-body">
-                    @include('categories._form')
-                </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary float-end">Save</button>
-                    <a href="{{ route('category.index') }}" class="btn btn-secondary float-end me-2">Cencel</a>
-                </div>
-            </form>
         </div>
     </div>
 
 
 @endsection
+

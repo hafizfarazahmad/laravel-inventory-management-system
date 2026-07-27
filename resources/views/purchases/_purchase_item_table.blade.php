@@ -62,7 +62,7 @@
                             </td>
 
                             <td>
-                                <button class="btn btn-danger removeRow">
+                                <button class="btn btn-danger btn-sm removeRow">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </td>
@@ -72,7 +72,7 @@
             </table>
         </div>
         <div class="mt-3">
-            <button type="button" class="btn btn-success" id="addRowbtn">
+            <button type="button" class="btn btn-success btn-sm" id="addRowbtn">
                 <i class="fas fa-plus"></i> Add Row
             </button>
         </div>

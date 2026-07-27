@@ -8,7 +8,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box text-bg-primary">
                 <div class="inner">
-                    <h3>150</h3>
+                    <h3>{{ $product ?? 0 }}</h3>
                     <p>Total Products</p>
                 </div>
                 <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box text-bg-success">
                 <div class="inner">
-                    <h3>53<sup class="fs-5">%</sup></h3>
+                    <h3>{{ $category ?? 0 }}</sup></h3>
                     <p>Total Categories</p>
                 </div>
                 <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box text-bg-warning">
                 <div class="inner">
-                    <h3>44</h3>
+                    <h3>{{ $sale ?? 0 }}</h3>
                     <p>Total Sales</p>
                 </div>
                 <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box text-bg-danger">
                 <div class="inner">
-                    <h3>65</h3>
+                    <h3>{{ $customer ?? 0 }}</h3>
                     <p>Total Customers</p>
                 </div>
                 <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@
     </div>
     <div class="container mt-2">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-6 col-lg-6">
                 <div class="card">
                     <div class="card-header">
                         <h3>Recent Sales Table</h3>
@@ -108,37 +108,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>INV-0001</td>
-                                        <td>Ali</td>
-                                        <td>Rs. 15,000</td>
-                                        <td>01-07-2026</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-0002</td>
-                                        <td>Ahmad</td>
-                                        <td>Rs. 15,000</td>
-                                        <td>01-07-2026</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-0003</td>
-                                        <td>Bilal</td>
-                                        <td>Rs. 15,000</td>
-                                        <td>01-07-2026</td>
-                                    </tr>
-                                    <tr>
-                                        <td>INV-0004</td>
-                                        <td>Jahanzaib</td>
-                                        <td>Rs. 15,000</td>
-                                        <td>01-07-2026</td>
-                                    </tr>
+                                    @forelse ($sales as $sale)
+                                        <tr>
+                                            <td>{{ $sale->invoice_no ?? '' }}</td>
+                                            <td>{{ $sale->customer->name ?? '' }}</td>
+                                            <td>Rs. {{ $sale->total ?? '' }}</td>
+                                            <td>{{ $sale->date ?? '' }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center">No Sale Found</td>
+                                        </tr>
+                                    @endforelse
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-6 col-lg-6">
                 <div class="card">
                     <div class="card-header">
                         <h3>Low Stock Products</h3>
@@ -153,22 +142,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse ($low_stocks as $stock)
+                                        <tr>
+                                            <td>{{ $stock->name ?? '' }}</td>
+                                            <td>{{ $stock->stock ?? '' }}</td>
+                                        </tr>
+                                    @empty
                                     <tr>
-                                        <td>Mouse</td>
-                                        <td>4</td>
+                                        <td colspan="2" class="text-center">No Record Found</td>
                                     </tr>
-                                    <tr>
-                                        <td>Keyboard</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Printer</td>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Moniter</td>
-                                        <td>1</td>
-                                    </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

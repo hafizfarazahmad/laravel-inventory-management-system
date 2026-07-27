@@ -1,0 +1,37 @@
+.btn-sm {
+    border-radius: 0 !important;
+}
+
+.card {
+    border-radius: 0 !important;
+}
+
+/* ==========================
+   Loader
+========================== */
+
+.loader-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, .75);
+    backdrop-filter: blur(3px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-content .spinner-border {
+    width: 60px;
+    height: 60px;
+}
+
+.loader-content .fw-bold {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #333;
+}

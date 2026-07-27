@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('customer', CustomerController::class);
     Route::resource('purchase', PurchaseController::class);
     Route::resource('sale', SaleController::class);
+    Route::get('current-stock', [ProductController::class, 'current_stock'])->name('product.current_stock');
+    Route::get('low-stock', [ProductController::class, 'low_stock'])->name('product.low_stock');
 });
 
 require __DIR__.'/auth.php';

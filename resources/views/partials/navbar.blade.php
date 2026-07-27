@@ -10,6 +10,66 @@
 
         <!-- Right Side -->
         <ul class="navbar-nav ms-auto">
+            {{-- <li class="c-header-nav-item dropdown d-md-down-none mr-2">
+                <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i class="bi bi-bell" style="font-size: 20px;"></i>
+                    <span class="badge badge-pill badge-danger">
+                        @php
+                            $low_quantity_products = \App\Models\Product::select('id','stock','minimum_stock',)
+                                ->whereColumn('stock', '<=', 'minimum_stock')
+                                ->get();
+                            echo $low_quantity_products->count();
+                        @endphp
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg pt-0">
+                    <div class="dropdown-header bg-light">
+                        <strong>{{ $low_quantity_products->count() }} Notifications</strong>
+                    </div>
+                    @forelse($low_quantity_products as $product)
+                        <a class="dropdown-item" href="{{ route('product.show', $product->id) }}">
+                            <i class="bi bi-hash mr-1 text-primary"></i> Product: "{{ $product->product_name }}" is low
+                            in quantity!
+                        </a>
+                    @empty
+                        <a class="dropdown-item" href="#">
+                            <i class="bi bi-app-indicator mr-2 text-danger"></i> No notifications available.
+                        </a>
+                    @endforelse
+                </div>
+            </li> --}}
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-bs-toggle="dropdown" href="#" aria-label="Notifications: 15 unread">
+                    <i class="bi bi-bell-fill"></i>
+
+                    <span class="navbar-badge badge text-bg-warning">
+                        @php
+                            $low_quantity_products = \App\Models\Product::select('id', 'name', 'stock', 'minimum_stock')
+                                ->whereColumn('stock', '<=', 'minimum_stock')
+                                ->get();
+                            echo $low_quantity_products->count();
+                        @endphp
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                    <div class="dropdown-header bg-light">
+                        <strong>{{ $low_quantity_products->count() }} Notifications</strong>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    @forelse($low_quantity_products as $product)
+                        <a class="dropdown-item" href="{{ route('product.show', $product->id) }}">
+                            <i class="bi bi-hash mr-1 text-primary"></i> Product: "{{ $product->name }}" is low
+                            in quantity!
+                        </a>
+                    @empty
+                        <a class="dropdown-item" href="#">
+                            <i class="bi bi-app-indicator mr-2 text-danger"></i> No notifications available.
+                        </a>
+                    @endforelse
+                </div>
+            </li>
+
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                     <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
@@ -30,6 +90,5 @@
                 </ul>
             </li>
         </ul>
-
     </div>
 </nav>

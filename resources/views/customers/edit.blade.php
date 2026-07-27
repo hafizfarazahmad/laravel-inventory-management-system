@@ -1,38 +1,29 @@
 @extends('layouts.app')
 @section('title', 'Edit Customer')
 @section('content')
+@section('breadcrumb')
+    <h2>Edit Customer</h2>
+@endsection
 
-    <div class="content-header ms-2 me-2 mt-2">
-        <h2>Customers</h2>
-    </div>
-
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-header bg-dark text-white">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3 class="card-title">Edit Customer</h3>
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-md-10 offset-1">
+            <div class="card">
+                <form action="{{ route('customer.update', $customer->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="card-body">
+                        @include('customers._form')
                     </div>
-                    <div class="col-md-6">
-                        <a href="{{ route('customer.index') }}" class="btn btn-secondary float-end">Back</a>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary btn-sm float-end ms-2">Update</button>
+                        <a href="{{ route('customer.index') }}" class="btn btn-sm btn-secondary float-end">Cencle</a>
                     </div>
-                </div>
-                
+                </form>
             </div>
-
-            <form action="{{ route('customer.update', $customer->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="card-body">
-                    @include('customers._form')
-                </div>
-                <div class="card-footer float-end">
-                    <button type="submit" class="btn btn-primary text-end">Update</button>
-                    <a href="{{ route('customer.index') }}" class="btn btn-secondary text-end">Cencle</a>
-                </div>
-            </form>
         </div>
     </div>
+</div>
 
 
 @endsection

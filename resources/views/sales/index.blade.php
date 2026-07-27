@@ -1,27 +1,19 @@
 @extends('layouts.app')
 @section('title', 'Sale List')
 @section('content')
-    <div class="content-header ms-2 me-2 mt-2">
-        <h2>Sales</h2>
-    </div>
-
-    <div class="row ms-2 me-2 mt-2 mb-2">
-        <div class="col-md-12">
+@section('breadcrumb')
+    <h3>Sale List</h3>
+@endsection
+    <div class="row mt-4">
+        <div class="col-md-10 offset-1">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3 class="card-title">Sale List</h3>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="{{ route('sale.create') }}" class="btn btn-primary float-end"> <i
+                            <a href="{{ route('sale.create') }}" class="btn btn-primary btn-sm show-loader"> <i
                                     class="bi bi-plus-circle"></i> Add Sale</a>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover data-list" id="categoryTable">
+                        <table class="table table-bordered table-striped table-hover data-list" id="saleTable">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -31,7 +23,7 @@
                                     <th>Total Items</th>
                                     <th>Grand Total</th>
                                     <th>Status</th>
-                                    <th width="120">Action</th>
+                                    <th width="150">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,10 +43,10 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('sale.show', $sale->id) }}" class="btn btn-success btn-sm"><i class="bi bi-eye"></i></a>
+                                            <a href="{{ route('sale.show', $sale->id) }}" class="btn btn-success btn-sm show-loader"><i class="bi bi-eye"></i></a>
                                             <a href="{{ route('sale.edit', $sale->id) }}"
-                                                class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></a>
-                                            <form action="{{ route('sale.destroy', $sale->id) }}" class="d-inline"
+                                                class="btn btn-primary btn-sm show-loader"><i class="bi bi-pencil"></i></a>
+                                            <form action="{{ route('sale.destroy', $sale->id) }}" class="d-inline delete-btn"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
@@ -77,3 +69,25 @@
     </div>
 
 @endsection
+@push('scripts')
+    <script>
+        new DataTable('#saleTable', {
+            responsive: true,
+            pageLength: 10,
+            lengthMenu: [10, 25, 50, 100],
+
+            layout: {
+                topStart: {
+                    buttons: [
+                        'copy',
+                        'csv',
+                        'excel',
+                        'pdf',
+                        'print',
+                        'colvis'
+                    ]
+                }
+            }
+        });
+    </script>
+@endpush

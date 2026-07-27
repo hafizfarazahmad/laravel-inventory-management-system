@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Http\Requests\SaleRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class SaleController extends Controller
 {
@@ -68,6 +69,9 @@ class SaleController extends Controller
                 $item->total        = $data['total'][$key];
                 $item->save();
                 $product = Product::find($productId);
+                if ($product->stock < $data['quantity'][$key]) {
+                        throw new \Exception('Insufficient stock.');
+                    }
                 $product->stock    -= $data['quantity'][$key];
                 $product->save();
         }
@@ -133,6 +137,9 @@ class SaleController extends Controller
                 $item->total = $data['total'][$key];
                 $item->save();
                 $product = Product::find($productId);
+                if ($product->stock < $data['quantity'][$key]) {
+                    throw new \Exception('Insufficient stock.');
+                }
                 $product->stock -= $data['quantity'][$key];
                 $product->save(); 
                     
@@ -149,39 +156,48 @@ class SaleController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        DB::beginTransaction();
+{
+    DB::beginTransaction();
 
-        try {
+    try {
 
-            $sale = Sale::findOrFail($id);
+        $sale = Sale::findOrFail($id);
 
-            foreach ($sale->saleItems as $item) {
+        foreach ($sale->saleItems as $item) {
 
-                $product = Product::find($item->product_id);
+            $product = Product::find($item->product_id);
 
-                if ($product) {
-                    $product->stock -= $item->quantity;
-                    $product->save();
-                }
+            if ($product) {
+                $product->stock += $item->quantity;
+                $product->save();
             }
-
-            $sale->saleItems()->delete();
-
-            $sale->delete();
-
-            DB::commit();
-
-            return redirect()->route('sale.index')
-                ->with('success', 'Sale Deleted Successfully');
-
-        } catch (\Exception $e) {
-
-            DB::rollBack();
-
-            return back()
-                ->withInput()
-                ->with('error', $e->getMessage());
         }
-    }   
+
+        $sale->saleItems()->delete();
+        $sale->delete();
+
+        DB::commit();
+
+        return redirect()->route('sale.index')
+            ->with('success', 'Sale Deleted Successfully');
+
+    } catch (QueryException $e) {
+
+        DB::rollBack();
+
+        return back()->with(
+            'error',
+            'This record cannot be deleted because it is being used.'
+        );
+
+    } catch (\Exception $e) {
+
+        DB::rollBack();
+
+        return back()->with(
+            'error',
+            'Something went wrong.'
+        );
+    }
+}   
 }

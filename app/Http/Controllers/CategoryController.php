@@ -75,9 +75,24 @@ class CategoryController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
+{
+    try {
+
         $category = Category::findOrFail($id);
         $category->delete();
-        return redirect()->route('category.index')->with('success', 'Category Deleted Successfully');
+
+        return redirect()->route('category.index')
+            ->with('success', 'Category Deleted Successfully');
+
+    } catch (QueryException $e) {
+
+        return redirect()->back()
+            ->with('error', 'This record cannot be deleted because it is being used.');
+
+    } catch (\Exception $e) {
+
+        return redirect()->back()
+            ->with('error', 'Something went wrong.');
     }
+}
 }

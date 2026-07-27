@@ -9,6 +9,7 @@ use App\Http\Requests\PurchaseRequest;
 use App\Models\Purchase;
 use App\Models\PurchaseItem;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 
 class PurchaseController extends Controller
@@ -54,7 +55,7 @@ class PurchaseController extends Controller
             $purchase = new Purchase();
             $purchase->supplier_id = $data['supplier_id'];
             $purchase->purchase_date = $data['purchase_date'];
-            $purchase->invoice_no    = $invoiceNo;
+            $purchase->invoice_no    = $data['invoice_no'];
             $purchase->note          = $data['note'];
             $purchase->status        = $data['status'];
             $purchase->grand_total   = $data['grand_total'];
@@ -158,39 +159,52 @@ class PurchaseController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        DB::beginTransaction();
+{
+    DB::beginTransaction();
 
-        try {
+    try {
 
-            $purchase = Purchase::findOrFail($id);
+        $purchase = Purchase::findOrFail($id);
 
-            foreach ($purchase->purchaseItems as $item) {
+        foreach ($purchase->purchaseItems as $item) {
 
-                $product = Product::find($item->product_id);
+            $product = Product::find($item->product_id);
 
-                if ($product) {
-                    $product->stock -= $item->quantity;
-                    $product->save();
-                }
+            if ($product) {
+                $product->stock -= $item->quantity;
+                $product->save();
             }
-
-            $purchase->purchaseItems()->delete();
-
-            $purchase->delete();
-
-            DB::commit();
-
-            return redirect()->route('purchase.index')
-                ->with('success', 'Purchase Deleted Successfully');
-
-        } catch (\Exception $e) {
-
-            DB::rollBack();
-
-            return back()
-                ->withInput()
-                ->with('error', $e->getMessage());
         }
-    }   
+
+        // Agar purchase_items table me cascadeOnDelete laga hua hai
+        // to is line ko remove kar sakte ho.
+        $purchase->purchaseItems()->delete();
+
+        $purchase->delete();
+
+        DB::commit();
+
+        return redirect()->route('purchase.index')
+            ->with('success', 'Purchase Deleted Successfully');
+
+    } catch (QueryException $e) {
+
+        DB::rollBack();
+
+        if ($e->getCode() == 23000) {
+            return back()->with(
+                'error',
+                'This record cannot be deleted because it is being used.'
+            );
+        }
+
+        return back()->with('error', 'Something went wrong.');
+
+    } catch (\Exception $e) {
+
+        DB::rollBack();
+
+        return back()->with('error', 'Something went wrong.');
+    }
+}   
 }

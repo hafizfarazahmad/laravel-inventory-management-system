@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Sale;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Customer;
 
 class DashboardController extends Controller
 {
@@ -11,7 +15,13 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        $data['sales'] = Sale::where('status', 1)->latest()->take(4)->get();
+        $data['category'] = Category::where('status', 1)->count();
+        $data['product'] = Product::where('status', 1)->count();
+        $data['customer'] = Customer::where('status', 1)->count();
+        $data['sale'] = Sale::where('status', 1)->count();
+        $data['low_stocks'] = Product::where('stock', '<=', 'minimum_stock')->get();
+        return view('dashboard.index', $data);
     }
 
     /**
