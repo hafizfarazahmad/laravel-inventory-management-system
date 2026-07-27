@@ -17,11 +17,12 @@
                             <tr>
                                 <td>
                                     <input type="hidden" name="purchase_item_ids[]" value="{{ $item->id }}">
-                                    <select name="product_ids[]" class="form-select">
+                                    <select name="product_ids[]" class="form-select" id="btn_price">
                                         <option value="">Select Product</option>
                                         @foreach ($products as $product)
-                                            <option value="{{ $product->id }}"
-                                                {{ $item->product_id  == $product->id ? 'selected' : '' }}>
+                                            <option data-price="{{ $product->purchase_price }}"
+                                                value="{{ $product->id }}"
+                                                {{ $item->product_id == $product->id ? 'selected' : '' }}>
                                                 {{ $product->name }}</option>
                                         @endforeach
                                     </select>
@@ -42,7 +43,7 @@
                                 <select name="product_ids[]" class="form-select">
                                     <option value="">Select Product</option>
                                     @foreach ($products as $product)
-                                        <option value="{{ $product->id }}">
+                                        <option data-price="{{ $product->purchase_price }}" value="{{ $product->id }}">
                                             {{ $product->name }}
                                         </option>
                                     @endforeach
@@ -79,8 +80,8 @@
         <div class="row mt-3">
             <div class="col-md-4 offset-md-8">
                 <label class="form-label">Grand Total</label>
-                <input type="number" class="form-control" name="grand_total" value="{{ $purchase->grand_total ?? '' }}"
-                    readonly>
+                <input type="number" class="form-control" name="grand_total"
+                    value="{{ $purchase->grand_total ?? '' }}" readonly>
             </div>
         </div>
     </div>
@@ -136,5 +137,13 @@
             });
             document.querySelector('input[name="grand_total"]').value = grandTotal.toFixed(2)
         }
+        $(document).on('change', 'select[name="product_ids[]"]', function() {
+            let row = $(this).closest('tr');
+            let price = $(this).find(':selected').data('price');
+            row.find('input[name="purchase_price[]"]').val(price);
+            calculateRowTotal(row[0]);
+            calculateGrandTotal();
+
+        })
     </script>
 @endpush

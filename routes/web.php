@@ -9,6 +9,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controller\AjaxController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,6 +30,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('sale', SaleController::class);
     Route::get('current-stock', [ProductController::class, 'current_stock'])->name('product.current_stock');
     Route::get('low-stock', [ProductController::class, 'low_stock'])->name('product.low_stock');
+
+    Route::group(['prefix' => 'ajax'], function(){
+       Route::controller(AjaxController::class)->group(function () {
+        Route::get('get-purchase-price', 'getPurchasePrice')->name('getPurchasePrice');
+       }); 
+    });
 });
 
 require __DIR__.'/auth.php';

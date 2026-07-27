@@ -27,7 +27,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $data['sales'] = Sale::all();
+        $data['sales'] = Sale::with('customer')->withcount('saleItems')->latest()->get();
         return view('sales.index', $data);
     }
 

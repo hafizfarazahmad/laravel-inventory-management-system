@@ -20,7 +20,7 @@
                                     <select name="product_ids[]" class="form-select">
                                         <option value="">Select Product</option>
                                         @foreach ($products as $product)
-                                            <option value="{{ $product->id }}"
+                                            <option data-price="{{ $product->sale_price }}" value="{{ $product->id }}"
                                                 {{ $item->product_id == $product->id ? 'selected' : '' }}>
                                                 {{ $product->name }}</option>
                                         @endforeach
@@ -42,7 +42,7 @@
                                 <select name="product_ids[]" class="form-select">
                                     <option value="">Select Product</option>
                                     @foreach ($products as $product)
-                                        <option value="{{ $product->id }}">
+                                        <option data-price="{{ $product->sale_price }}" value="{{ $product->id }}">
                                             {{ $product->name }}
                                         </option>
                                     @endforeach
@@ -89,43 +89,45 @@
     <script>
         const saleItems = document.getElementById('saleItems');
         const addRowbtn = document.getElementById('addRowbtn');
-        addRowbtn.addEventListener('click', function(){
+        addRowbtn.addEventListener('click', function() {
             const lastRow = saleItems.querySelector('tr');
-            const newRow  = lastRow.cloneNode(true);
+            const newRow = lastRow.cloneNode(true);
             newRow.querySelector('select').selectedIndex = 0;
             newRow.querySelector('input[name="quantity[]"]').value = 1;
             newRow.querySelector('input[name="sale_price[]"]').value = 0.00;
             newRow.querySelector('input[name="total[]"]').value = 0.00;
             saleItems.appendChild(newRow);
         });
-        saleItems.addEventListener('click', function(e){
-            if(e.target.closest('.removeRow')){
+        saleItems.addEventListener('click', function(e) {
+            if (e.target.closest('.removeRow')) {
                 e.preventDefault();
                 const row = e.target.closest('tr');
                 const totalRows = saleItems.querySelectorAll('tr').length;
-                if(totalRows > 1){
-                row.remove();
+                if (totalRows > 1) {
+                    row.remove();
                 } else {
-                alert('atleast one row is required');
+                    alert('atleast one row is required');
                 }
             }
         });
-        function calculateRowTotal(row){
+
+        function calculateRowTotal(row) {
             const qty = parseFloat(row.querySelector('input[name="quantity[]"]').value) || 0;
             const price = parseFloat(row.querySelector('input[name="sale_price[]"]').value) || 0;
             const total = row.querySelector('input[name="total[]"]');
             total.value = (qty * price).toFixed(2);
             calculateGrandTotal();
-        } 
+        }
 
         document.addEventListener('input', function(e) {
-            if(e.target.name === 'quantity[]' || e.target.name === 'sale_price[]'){
+            if (e.target.name === 'quantity[]' || e.target.name === 'sale_price[]') {
                 const row = e.target.closest('tr');
                 calculateRowTotal(row);
                 calculateGrandTotal();
             }
         });
-        function calculateGrandTotal(){
+
+        function calculateGrandTotal() {
             const total = document.querySelectorAll('input[name="total[]"]');
             let grandTotal = 0;
             total.forEach(function(item) {
@@ -133,5 +135,12 @@
                 document.querySelector('input[name="grand_total"]').value = grandTotal.toFixed(2);
             })
         }
+        $(document).on('change', 'select[name="product_ids[]"]', function() {
+            let row = $(this).closest('tr');
+            let price = $(this).find(':selected').data('price');
+            row.find('input[name="sale_price[]"]').val(price);
+            calculateRowTotal(row[0]);
+            calculateGrandTotal();
+        })
     </script>
 @endpush

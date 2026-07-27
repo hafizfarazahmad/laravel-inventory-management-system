@@ -10,6 +10,7 @@ class Purchase extends Model
         'supplier_id',
         'purchase_data',
         'invoice_no',
+        'grand_total',
         'note',
         'status'
 
