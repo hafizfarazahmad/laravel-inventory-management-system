@@ -5,7 +5,7 @@
     <h3>Add Sale</h3>
 @endsection
 <div class="row mt-4">
-    <div class="col-md-10 offset-1">
+    <div class="col-md-12">
         <form action="{{ route('sale.store') }}" method="POST">
             @csrf
             <div class="card">

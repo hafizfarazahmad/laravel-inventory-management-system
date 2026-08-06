@@ -136,4 +136,9 @@ class ProductController extends Controller
         $data['products'] = Product::where('stock','<=', 'minimum_stock')->get();
         return view('stock.low_stock', $data);
     }
+    public function stock_report()
+    {
+        $data['stocks'] = Product::where('status', 1)->get();
+        return view('stock.stock_report', $data);
+    }
 }

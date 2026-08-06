@@ -12,8 +12,8 @@
 
 
 <div class="container-fluid mt-4">
-    <div class="row">
-        <div class="col-md-10 offset-1">
+    <div class="row mt-2 me-2 ms-2">
+        <div class="col-md-12">
             <form action="{{ route('category.update', $category->id) }}" method="POST">
                 @csrf
                 @method('PUT')
@@ -26,7 +26,8 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary btn-sm float-end">Update</button>
-                        <a href="{{ route('category.index') }}" class="btn btn-secondary float-end me-2 btn-sm">Cencle</a>
+                        <a href="{{ route('category.index') }}"
+                            class="btn btn-secondary float-end me-2 btn-sm">Cencle</a>
                     </div>
                 </div>
             </form>

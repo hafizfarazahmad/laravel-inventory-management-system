@@ -6,7 +6,7 @@
 @endsection
 <div class="container-fluid mt-4">
     <div class="row">
-        <div class="col-md-10 offset-1">
+        <div class="col-md-12">
             <div class="card">
                 <form action="{{ route('supplier.store') }}" method="POST">
                     @csrf
@@ -15,7 +15,8 @@
                     </div>
                     <div class="card-footer ">
                         <button type="submit" class="btn btn-primary btn-sm float-end">Save</button>
-                        <a href="{{ route('supplier.index') }}" class="btn btn-secondary float-end btn-sm me-2">Cencel</a>
+                        <a href="{{ route('supplier.index') }}"
+                            class="btn btn-secondary float-end btn-sm me-2">Cencel</a>
                     </div>
                 </form>
             </div>

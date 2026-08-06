@@ -9,7 +9,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SaleController;
-use App\Http\Controller\AjaxController;
+use App\Http\Controllers\SettingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,12 +30,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('sale', SaleController::class);
     Route::get('current-stock', [ProductController::class, 'current_stock'])->name('product.current_stock');
     Route::get('low-stock', [ProductController::class, 'low_stock'])->name('product.low_stock');
+    Route::get('purchase-report', [PurchaseController::class, 'purchase_report'])->name('purchase.report');
+    Route::post('purchase-report', [PurchaseController::class, 'purchase_report']);
+    Route::get('sale-report', [SaleController::class, 'sale_report'])->name('sale.report');
+    Route::post('sale-report', [SaleController::class, 'sale_report']);
+    Route::get('stock-report', [ProductController::class, 'stock_report'])->name('stock.report');
+    Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
+    Route::post('setting/update', [SettingController::class, 'update'])->name('setting.update');
 
-    Route::group(['prefix' => 'ajax'], function(){
-       Route::controller(AjaxController::class)->group(function () {
-        Route::get('get-purchase-price', 'getPurchasePrice')->name('getPurchasePrice');
-       }); 
-    });
 });
 
 require __DIR__.'/auth.php';

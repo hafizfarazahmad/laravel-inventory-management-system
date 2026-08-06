@@ -200,4 +200,33 @@ class SaleController extends Controller
         );
     }
 }   
+public function sale_report(Request $request)
+{
+    $data['customers'] = Customer::all();
+    $data['sales'] = Sale::with('customer')->withcount('saleItems')->latest()->get();
+    if($request->isMethod('post'))
+    {
+        $data['from_date'] = $request->input('from_date');
+        $data['to_date'] = $request->input('to_date');
+        $data['customer_id'] = $request->input('customer_id');
+
+        $query = Sale::with('customer')->withcount('saleItems')->latest();
+
+        if ($data['from_date']) {
+            $query->whereDate('sale_date', '>=', $data['from_date']);
+        }
+
+        if ($data['to_date']) {
+            $query->whereDate('sale_date', '<=', $data['to_date']);
+        }
+
+        if ($data['customer_id']) {
+            $query->where('customer_id', $data['customer_id']);
+        }
+
+        $data['sales'] = $query->get();
+    }
+
+    return view('sales.report', $data);
+}
 }

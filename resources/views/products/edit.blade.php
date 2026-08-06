@@ -2,7 +2,7 @@
 @section('title', 'Edit Products')
 @section('content')
 
-    <div class="content-header ms-2 me-2 mt-2">
+    <div class="container">
         <h2>Products</h2>
     </div>
 

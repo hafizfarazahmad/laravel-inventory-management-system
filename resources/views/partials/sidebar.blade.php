@@ -1,6 +1,10 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
-        <a href="{{ url('/dashboard') }}" class="navbar-brand text-light">Laravel IMS</a>
+        @php
+            $setting = \App\Models\CompanySetting::first();
+        @endphp
+        {{-- <a href="{{ url('/dashboard') }}" class="navbar-brand text-light">Laravel IMS</a> --}}
+        <a href="{{ url('/dashboard') }}" class="navbar-brand text-light"><img src="{{ asset('uploads/logos/' . $setting->logo) }}" alt="" height="40" width="80"></a>
     </div>
     <div class="sidebar-wrapper">
         <nav class="mt-2" aria-label="Main navigation">
@@ -114,19 +118,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./UI/general.html" class="nav-link">
+                            <a href="{{ route('purchase.report') }}" class="nav-link">
                                 <i class="nav-icon bi bi-file-earmark-text"></i>
                                 <p>Purchase Report</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./UI/icons.html" class="nav-link">
+                            <a href="{{ route('sale.report') }}" class="nav-link">
                                 <i class="nav-icon bi bi-file-earmark-bar-graph"></i>
                                 <p>Sales Report</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./UI/icons.html" class="nav-link">
+                            <a href="{{ route('stock.report') }}" class="nav-link">
                                 <i class="nav-icon bi bi-clipboard-data"></i>
                                 <p>Stock Report</p>
                             </a>
@@ -157,7 +161,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('setting.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-gear"></i>
                         <p>
                             Settings

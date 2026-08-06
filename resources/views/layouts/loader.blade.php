@@ -2,7 +2,7 @@
 
     <div class="loader-content">
 
-        <div class="spinner-border text-primary"
+        <div class="spinner-border text-dark"
             style="width:60px;height:60px;"
             role="status">
 

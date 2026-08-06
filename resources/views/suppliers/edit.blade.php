@@ -6,7 +6,7 @@
 @endsection
 <div class="container-fluid">
     <div class="row mt-4">
-        <div class="col-md-10 offset-1">
+        <div class="col-md-12">
             <div class="card">
                 <form action="{{ route('supplier.update', $supplier->id) }}" method="POST">
                     @csrf

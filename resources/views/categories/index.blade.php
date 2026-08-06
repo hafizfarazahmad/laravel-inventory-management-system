@@ -6,11 +6,12 @@
     <h3>Category List</h3>
 @endsection
 
-<div class="row mt-4">
-    <div class="col-md-10 offset-1">
+<div class="row mt-4 me-2 ms-2">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('category.create') }}" class="btn btn-primary btn-sm show-loader"> <i class="bi bi-plus-circle"></i>
+                <a href="{{ route('category.create') }}" class="btn btn-primary btn-sm show-loader"> <i
+                        class="bi bi-plus-circle"></i>
                     Add Category</a>
                 <hr>
                 <div class="card-body">
@@ -38,7 +39,8 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('category.edit', $category->id) }}"
-                                                class="btn btn-primary btn-sm show-loader"><i class="bi bi-pencil"></i></a>
+                                                class="btn btn-primary btn-sm show-loader"><i
+                                                    class="bi bi-pencil"></i></a>
                                             <form action="{{ route('category.destroy', $category->id) }}"
                                                 class="d-inline delete-btn" method="POST">
                                                 @csrf

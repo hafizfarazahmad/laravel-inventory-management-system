@@ -9,9 +9,9 @@
 
 
 
-<div class="container-fluid mt-4">
+<div class="container-fluid mt-2 me-2 ms-2">
     <div class="row">
-        <div class="col-md-10 offset-1">
+        <div class="col-md-12">
             <div class="card">
                 <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf

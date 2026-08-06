@@ -5,7 +5,7 @@
     <h3>Edit Sale</h3>
 @endsection
 <div class="row mt-4">
-    <div class="col-md-10 offset-1">
+    <div class="col-md-12">
         <form action="{{ route('sale.update', $sale->id) }}" method="POST">
             @csrf
             @method('PUT')

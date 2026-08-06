@@ -6,7 +6,7 @@
 @endsection
 
 <div class="row mt-4">
-    <div class="col-md-10 offset-1">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 <a href="{{ route('purchase.create') }}" class="btn btn-primary btn-sm"> <i

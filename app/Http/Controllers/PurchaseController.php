@@ -206,5 +206,34 @@ class PurchaseController extends Controller
 
         return back()->with('error', 'Something went wrong.');
     }
+}
+public function purchase_report(Request $request)
+{
+    $data['suppliers'] = Supplier::all();
+    $data['purchases'] = Purchase::with('supplier')->withcount('purchaseItems')->latest()->get();
+    if($request->isMethod('post'))
+    {
+        $data['from_date'] = $request->input('from_date');
+        $data['to_date'] = $request->input('to_date');
+        $data['supplier_id'] = $request->input('supplier_id');
+
+        $query = Purchase::with('supplier')->withcount('purchaseItems')->latest();
+
+        if ($data['from_date']) {
+            $query->whereDate('purchase_date', '>=', $data['from_date']);
+        }
+
+        if ($data['to_date']) {
+            $query->whereDate('purchase_date', '<=', $data['to_date']);
+        }
+
+        if ($data['supplier_id']) {
+            $query->where('supplier_id', $data['supplier_id']);
+        }
+
+        $data['purchases'] = $query->get();
+    }
+
+    return view('purchases.report', $data);
 }   
 }

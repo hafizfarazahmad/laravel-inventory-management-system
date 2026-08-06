@@ -6,8 +6,8 @@
 @endsection
 
 <div class="container-fluid">
-    <div class="row mt-4">
-        <div class="col-md-10 offset-1">
+    <div class="row mt-4 me-2 ms-2">
+        <div class="col-md-12">
             <div class="card">
                 <form action="{{ route('customer.store') }}" method="POST">
                     @csrf

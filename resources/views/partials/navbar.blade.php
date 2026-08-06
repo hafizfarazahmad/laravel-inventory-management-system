@@ -71,7 +71,12 @@
             </li>
 
             <li class="nav-item dropdown user-menu">
+                @php
+                    $setting = \App\Models\CompanySetting::first();
+                @endphp
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                    <img src="{{ asset('uploads/logos/' . $setting->logo) }}" class="user-image img-circle elevation-2"
+                        alt="User Image" style="width: 30px; height: 30px; object-fit: cover;">
                     <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">

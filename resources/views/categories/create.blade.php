@@ -10,8 +10,8 @@
 @endsection
 
 <div class="container-fluid mt-4">
-    <div class="row">
-        <div class="col-md-10 offset-1">
+    <div class="row mt-2 me-2 ms-2">
+        <div class="col-md-12">
             <div class="card">
                 <form action="{{ route('category.store') }}" method="POST">
                     @csrf
@@ -30,4 +30,3 @@
 
 
 @endsection
-
